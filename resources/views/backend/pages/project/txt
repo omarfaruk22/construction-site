@@ -1,0 +1,5 @@
+
+        @if(Session::has('message'))
+        
+      <span style="red">{{ Session::get('message') }}</span>
+         @endif
