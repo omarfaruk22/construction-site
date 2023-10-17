@@ -37,13 +37,16 @@
                     <td>{!!$data->description!!}</td>
                     <td><img height="60"width="80" src="{{ asset('backend/blogimage/'.$data->pic)  }}" /></td>
                     <td> @if ($data->type==0)
-                      <span class="badge badge-sm btn-info">Welcome</span>
+                      <span class="badge badge-sm btn-info">Project</span>
                       @elseif(($data->type==1))
                       <span class="badge badge-sm btn-warning">About</span>
                       @elseif(($data->type==2))
                       <span class="badge badge-sm btn-success">Services</span>
                       @elseif(($data->type==3))
                       <span class="badge badge-sm btn-primary">Blog</span>
+                     
+                      @elseif(($data->type==4))
+                      <span class="badge badge-sm btn-secondary">Welcome</span>
                       @else
                       <span class="badge badge-sm btn-danger">error</span>
                       @endif</td>
@@ -58,7 +61,7 @@
                     <td>
                   
                     <td>
-                      <a href="{{route('blogedit',$data->id)}}" class="btn btn-sm btn-info"><i class="fa fa-edit"></i></a>
+                      <a href="{{route('postedit',$data->id)}}" class="btn btn-sm btn-info"><i class="fa fa-edit"></i></a>
                       <button class="btn btn-sm btn-danger"><i class="fa fa-trash" data-target='#delete{{ $data->id }}' data-toggle="modal"></i></button>
                     </td>
                   </tr>
@@ -77,7 +80,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <a href="{{route('blogdelete', $data->id )}}" class="btn btn-danger">Confirm</a>
+        <a href="{{route('postdelete', $data->id )}}" class="btn btn-danger">Confirm</a>
       </div>
     </div>
   </div>

@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Backend\Post;
+use App\Models\Backend\Comment;
+use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
 use File;
 
@@ -34,11 +36,15 @@ class PostController extends Controller
     {
         $posts=new Post();
         $request->validate([
+        'type'=>'required',
          'title'=>'required',
          'description'=>'required',
+         'pic'=>'required',
+         'status'=>'required',
       ]);
         $posts->title = $request->title;
         $posts->description = $request->description;
+        $posts->slug = Str::slug($request->title);
         $posts->type = $request->type;
         $posts->status = $request->status;
         if ($request->pic) {
@@ -56,9 +62,37 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Post $post)
     {
-        //
+       $postshows=Post::where('id', $post->id)->get();
+       $postshow=Post::find($post->id);
+       $resentpost=Post::orderBy('created_at', 'desc')->where('type',3)->where('status',1)->limit(6)->get();
+       $ourservice=Post::orderBy('created_at', 'desc')->where('type',2)->where('status',1)->limit(6)->get();
+       $ourproject=Post::orderBy('created_at', 'desc')->where('type',0)->where('status',1)->limit(6)->get();
+       $commentshow=Comment::where('post_id',$post->id)->where('status',0)->limit(10)->get();
+       return view('frontend.page.postshow.postshow',compact('postshows','postshow','commentshow','resentpost','ourservice','ourproject'));
+    }
+
+
+    public function blogshow(Post $post){
+        $blogpost=Post::orderBy('created_at', 'desc')->where('type',3)->where('status',1)->paginate(6);
+        return view('frontend.page.postshow.blogpage',compact('blogpost'));
+
+
+
+    }
+    public function sershow(Post $post){
+        $serpost=Post::orderBy('created_at', 'desc')->where('type',2)->where('status',1)->paginate(6);
+        return view('frontend.page.postshow.serpage',compact('serpost'));
+
+
+
+    }
+    public function projectshow(Post $post){
+
+        $projectshow=Post::orderby('id','desc')->where('type',0)->where('status',1)->paginate(6);
+        return view('frontend.page.postshow.projectshow',compact('projectshow'));
+
     }
 
     /**
@@ -79,6 +113,7 @@ class PostController extends Controller
         
         $postupdate->title = $request->title;
         $postupdate->description = $request->description;
+        $postupdate->slug = Str::slug($request->title);
       
         if(!empty($request->pic)){
             if(File::exists('backend/blogimage/'.$postupdate->pic)){

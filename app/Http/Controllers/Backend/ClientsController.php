@@ -36,10 +36,12 @@ class ClientsController extends Controller
         $request->validate([
          'name'=>'required',
          'opinion'=>'required',
+         'profession'=>'required',
          'pic'=>'required',
          'status'=>'required',
       ]);
         $client->name = $request->name;
+        $client->profession = $request->profession;
         $client->opinion = $request->opinion;
         $client->status = $request->status;
         if ($request->pic) {
@@ -78,6 +80,7 @@ class ClientsController extends Controller
     {
         $clientupdate=Client::find($id);
         $clientupdate->name=$request->name;
+        $clientupdate->profession = $request->profession;
         $clientupdate->opinion=$request->opinion;
         if(!empty($request->pic)){
             if(File::exists('backend/clientimage/'.$clientupdate->pic)){

@@ -1,4 +1,4 @@
-    <!-- ########## START: RIGHT PANEL ########## -->
+    {{-- <!-- ########## START: RIGHT PANEL ########## -->
     <div class="br-sideright">
       <ul class="nav nav-tabs sidebar-tabs" role="tablist">
         <li class="nav-item">
@@ -388,4 +388,4 @@
         </div>
       </div><!-- tab-content -->
     </div><!-- br-sideright -->
-    <!-- ########## END: RIGHT PANEL ########## --->
+    <!-- ########## END: RIGHT PANEL ########## ---> --}}

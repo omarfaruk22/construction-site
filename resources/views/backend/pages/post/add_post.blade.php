@@ -11,7 +11,7 @@
 </div>
 
       <div class="br-pagebody">
-        <form action="{{route('blogstore')}}" method="post" enctype="multipart/form-data">
+        <form action="{{route('poststore')}}" method="post" enctype="multipart/form-data">
           @csrf
         <div class="row">
          
@@ -25,10 +25,11 @@
               <select name="type" id="type" class="form-control">
                 <option value="">------Select post Category-----</option>
         
-                <option value="0">welcome</option> 
+                <option value="0">Project</option> 
                 <option value="1">About</option> 
                 <option value="2">Services</option> 
                 <option value="3">Blog</option> 
+                <option value="4">Welcome</option> 
 
               </select>
               <span class="text-danger">

@@ -23,7 +23,7 @@
 
 
           <div class="form-group">
-            <input type="text" name="email" class="form-control fc-outline-dark" placeholder="Enter your username">
+            <input type="text" name="email" class="form-control fc-outline-dark" placeholder="Enter your email">
           </div><!-- form-group -->
           <div class="form-group">
             <input type="password" name="password" class="form-control fc-outline-dark" placeholder="Enter your password">

@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Backend\Project;
+use Illuminate\Support\Str;
+use Illuminate\Pagination\Paginator;
 use Intervention\Image\Facades\Image;
 use File;
 
@@ -42,6 +44,7 @@ class ProjectController extends Controller
        $projects->description = $request->description;
        $projects->type = $request->ptype;
        $projects->status = $request->status;
+       $projects->slug = Str::slug( $request->pname);
        if ($request->pic) {
         $image = $request->file('pic');
         $imageName = time() . '.' . $image->getClientOriginalExtension();
@@ -59,9 +62,9 @@ class ProjectController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show()
     {
-        //
+       //
     }
 
     /**
@@ -81,6 +84,7 @@ class ProjectController extends Controller
         $projectupdate=Project::find($id);
         
         $projectupdate->name = $request->pname;
+        $projectupdate->slug = Str::slug( $request->pname);
         $projectupdate->description = $request->description;
       
         if(!empty($request->pic)){

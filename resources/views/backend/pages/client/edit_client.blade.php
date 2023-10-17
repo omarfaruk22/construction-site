@@ -24,6 +24,17 @@
                 @enderror
               </span>
              </div>
+             
+             
+              <div class="form-group">
+               <label for="profession">Client profession</label> 
+               <input type="text" name="profession" id="profession" placeholder="Edit Client profession" class="form-control" value="{{$editclient->profession}}">
+               <span class="text-danger">
+                 @error('profession')
+                   {{ $message }}
+                 @enderror
+               </span>
+              </div>
              <div class="form-group">
                 <label for="name">Client Opinion</label> 
                 <textarea type="text" name="opinion" id="opinion" placeholder="Edit Client opinion" class="form-control"> {!!$editclient->opinion!!}</textarea>

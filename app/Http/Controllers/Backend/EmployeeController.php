@@ -4,8 +4,13 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Backend\Employee;
+use App\Models\Backend\Post;
+use App\Models\Backend\Client;
+use App\Models\Backend\Query;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\Paginator;
 use Intervention\Image\Facades\Image;
+
 use File;
 
 class EmployeeController extends Controller
@@ -60,9 +65,24 @@ class EmployeeController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show( )
     {
-        //
+        $teamshow=Employee::orderby('id','asc')->where('status',1)->paginate(8);
+        return view('frontend.page.postshow.teamshow',compact('teamshow'));
+    }
+
+    public function aboutshows(){
+        $countclient1=Client::count();
+        $countemployee1=Employee::count();
+        $countcompleteproject1=Post::where('type',0)->where('status',1)->count();
+        $countrunningproject1=Post::where('type',0)->where('status',2)->count();
+        $queryshow2=Query::orderby('created_at','asc')->where('status',1)->limit(5)->get();
+        $queryshow3=Query::orderby('created_at','desc')->where('status',1)->limit(5)->get();
+         $aboutshows=Post::where('type',1)->where('status',1)->limit(1)->get();
+         return view('frontend.page.postshow.aboutshow',compact('aboutshows','countclient1','countemployee1','countcompleteproject1',
+        'countrunningproject1','queryshow2','queryshow3'));
+
+
     }
 
     /**

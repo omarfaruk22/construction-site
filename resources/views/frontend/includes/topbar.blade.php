@@ -3,9 +3,9 @@
         <div class="row align-items-center">
             <div class="col-lg-4 col-md-12">
                 <div class="logo">
-                    <a href="index.html">
-                        <h1>Builderz</h1>
-                        <!-- <img src="img/logo.jpg" alt="Logo"> -->
+                    <a href="{{route('landing')}}">
+                        <h1>Friendz</h1>
+                        {{-- <img src="{{asset('frontend/img/2.png')}}" alt="Logo">  --}}
                     </a>
                 </div>
             </div>

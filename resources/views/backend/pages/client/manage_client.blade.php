@@ -19,6 +19,8 @@
                 <tr>
                   <td>#Sl</td>
                   <td>Name</td>
+                  <td>profession</td>
+                  
                   <td>Opinion</td>
                   <td>Image</td>
                   <td>status</td>
@@ -33,6 +35,7 @@
                     <td>{{ $sl }}</td>
                     
                     <td>{{ $data->name }}</td>
+                    <td>{{ $data->profession }}</td>
                     <td>{!!$data->opinion!!}</td>
                     <td><img height="60"width="80" src="{{ asset('backend/clientimage/'.$data->pic)  }}" /></td>
                     <td> @if ($data->status==1)

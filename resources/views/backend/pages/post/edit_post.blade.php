@@ -11,7 +11,7 @@
 </div>
 
       <div class="br-pagebody">
-        <form action="{{route('blogupdate', $blogedit->id)}}" method="post" enctype="multipart/form-data">
+        <form action="{{route('postupdate', $blogedit->id)}}" method="post" enctype="multipart/form-data">
           @csrf
         <div class="row">
           <div class="col-sm-6">
@@ -20,10 +20,11 @@
               <label for="type">Select post Category</label>
               <select name="type" id="type" class="form-control">
                 <option value="">------Select post Category-----</option>
-                <option value="0" @if($blogedit->type==0) selected @endif >welcome</option>
+                <option value="0" @if($blogedit->type==0) selected @endif >Project</option>
                 <option value="1" @if($blogedit->type==1) selected @endif >About</option>
                 <option value="2" @if($blogedit->type==2) selected @endif >Services</option>
-                <option value="2" @if($blogedit->type==3) selected @endif >Blog</option>
+                <option value="3" @if($blogedit->type==3) selected @endif >Blog</option>
+                <option value="4" @if($blogedit->type==4) selected @endif >Welcome</option>
       
               </select>
               <span class="text-danger">

@@ -8,19 +8,13 @@
 
             <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                 <div class="navbar-nav mr-auto">
-                    <a href="index.html" class="nav-item nav-link active">Home</a>
-                    <a href="about.html" class="nav-item nav-link">About</a>
-                    <a href="service.html" class="nav-item nav-link">Service</a>
-                    <a href="team.html" class="nav-item nav-link">Team</a>
-                    <a href="portfolio.html" class="nav-item nav-link">Project</a>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
-                        <div class="dropdown-menu">
-                            <a href="blog.html" class="dropdown-item">Blog Page</a>
-                            <a href="single.html" class="dropdown-item">Single Page</a>
-                        </div>
-                    </div>
-                    <a href="{{route('contactcreate')}}" class="nav-item nav-link">Contact</a>
+                    <a href="{{route('landing')}}" class="nav-item nav-link {{ Request::is('/') ? 'active' : '' }}">Home</a>
+                    <a href="{{route('aboutshow')}}" class="nav-item nav-link {{ Request::is('bg/about') ? 'active' : '' }}">About</a>
+                    <a href="{{route('sershow')}}" class="nav-item nav-link {{ Request::is('bg/service-show') ? 'active' : '' }}">Service</a>
+                    <a href="{{route('employeeshow')}}" class="nav-item nav-link {{ Request::is('bg/team-show') ? 'active' : '' }}">Team</a>
+                    <a href="{{route('projectshow')}}" class="nav-item nav-link {{ Request::is('bg/project-show') ? 'active' : '' }}">Project</a>
+                    <a href="{{route('blogshow')}}" class="nav-item nav-link {{ Request::is('all-show') ? 'active' : '' }}">Blog Page</a>
+                    <a href="{{route('contactcreate')}}" class="nav-item nav-link {{ Request::is('create') ? 'active' : '' }}">Contact</a>
                 </div>
                 {{-- <div class="ml-auto">
                     <a class="btn" href="#">Login</a>

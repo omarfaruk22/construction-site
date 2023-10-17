@@ -5,8 +5,8 @@
 <div class="br-pagetitle">
     <i class="icon ion-ios-home-outline"></i>
     <div>
-      <h4>Project Page</h4>
-      <p class="mg-b-0">Manage Project</p>
+      <h4>Blog Page</h4>
+      <p class="mg-b-0">Manage Blog</p>
     </div>
 </div>
 
@@ -18,11 +18,14 @@
               <thead>
                 <tr>
                   <td>#Sl</td>
-                  {{-- <td>Project Id</td> --}}
+                  <td>Category Name</td>
                   <td>Title</td>  
                   <td>Description</td>
+                  <td>Writter Name</td>
+                  <td>Keywords</td>
+                  <td>Short Description</td>
                   <td>Image</td>
-                  <td>Type</td>
+                  <td>Slug</td>
                   <td>status</td>
                   <td>Action</td>
                 </tr>
@@ -30,22 +33,18 @@
 
               <tbody class="tbody">
               @php $sl=1 @endphp
-                @foreach ($project as $data)
+                @foreach ($blogpost as $data)
                   <tr>
                     <td>{{ $sl }}</td>
-                    {{-- <td>{{ $data->id}}</td> --}}
-                    <td>{{ $data->name }}</td>
+                    <td>{{ $data->blogcat->name}}</td>
+                    <td>{{ $data->title }}</td>
                     <td>{!!$data->description!!}</td>
-                    <td><img height="60" width="80" src="{{ asset('backend/projectimage/'.$data->pic)  }}" ></td>
-                    <td> @if ($data->type==0)
-                      <span class="badge badge-sm btn-info">Upcomming</span>
-                      @elseif(($data->type==1))
-                      <span class="badge badge-sm btn-warning">Running</span>
-                      @elseif(($data->type==2))
-                      <span class="badge badge-sm btn-success">Completed</span>
-                      @else
-                      <span class="badge badge-sm btn-danger">error</span>
-                      @endif</td>
+                    <td>{{ $data->writer_name}}</td>
+                    <td>{{ $data->meta_tag}}</td>
+                    <td>{!!$data->short_des!!}</td>
+                    <td><img height="60" width="80" src="{{ asset('backend/blogpostimage/'.$data->pic)  }}" ></td>
+                    <td>{{ $data->slug}}</td>
+
                     <td> @if ($data->status==1)
                       <span class="badge badge-sm btn-success">active</span>
                       @elseif(($data->status==2))
@@ -55,7 +54,7 @@
                       @endif</td>
                   
                     <td>
-                      <a href="{{route('projectedit',$data->id)}}" class="btn btn-sm btn-info"><i class="fa fa-edit"></i></a>
+                      <a href="{{route('blogpostedit',$data->id)}}" class="btn btn-sm btn-info"><i class="fa fa-edit"></i></a>
                       <button class="btn btn-sm btn-danger"><i class="fa fa-trash" data-target='#delete{{ $data->id }}' data-toggle="modal"></i></button>
                     </td>
                   </tr>
@@ -70,11 +69,11 @@
         </button>
       </div>
       <div class="modal-body">
-        Are you sure want to delete this Project?
+        Are you sure want to delete this Blog?
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <a href="{{route('projectdelete', $data->id )}}" class="btn btn-danger">Confirm</a>
+        <a href="{{route('blogpostelete', $data->id )}}" class="btn btn-danger">Confirm</a>
       </div>
     </div>
   </div>

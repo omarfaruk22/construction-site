@@ -31,6 +31,15 @@
               </span>
              </div>
              <div class="form-group">
+              <label for="name">Client profession</label> 
+              <input type="text" name="profession" id="profession" placeholder="Enter Client profession" class="form-control" value="{{ old('profession') }}">
+              <span class="text-danger">
+                @error('profession')
+                  {{ $message }}
+                @enderror
+              </span>
+             </div>
+             <div class="form-group">
               <label for="opinion">Client Opinion</label> 
               <textarea type="text" name="opinion" id="opinion" placeholder="Enter Client opinion" class="form-control"  value="{{ old('opinion') }}"></textarea>
               <span class="text-danger">
