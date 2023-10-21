@@ -70,6 +70,7 @@
               </tbody>
 
              </table> 
+             {!! $user->links() !!}
             </div>
           </div>
       </div><!-- br-pagebody -->

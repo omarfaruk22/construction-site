@@ -17,7 +17,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $post=Post::orderby('id','asc')->get();
+        $post=Post::orderby('id','asc')->paginate(15);
         return view('backend.pages.post.managepost', compact('post'));
     }
 
@@ -40,10 +40,12 @@ class PostController extends Controller
          'title'=>'required',
          'description'=>'required',
          'pic'=>'required',
+         'meta_tag'=>'required',
          'status'=>'required',
       ]);
         $posts->title = $request->title;
         $posts->description = $request->description;
+        $posts->meta_tag = $request->meta_tag;
         $posts->slug = Str::slug($request->title);
         $posts->type = $request->type;
         $posts->status = $request->status;
@@ -69,18 +71,12 @@ class PostController extends Controller
        $resentpost=Post::orderBy('created_at', 'desc')->where('type',3)->where('status',1)->limit(6)->get();
        $ourservice=Post::orderBy('created_at', 'desc')->where('type',2)->where('status',1)->limit(6)->get();
        $ourproject=Post::orderBy('created_at', 'desc')->where('type',0)->where('status',1)->limit(6)->get();
-       $commentshow=Comment::where('post_id',$post->id)->where('status',0)->limit(10)->get();
+       $commentshow=Comment::where('post_id',$post->id)->where('status',0)->limit(20)->get();
        return view('frontend.page.postshow.postshow',compact('postshows','postshow','commentshow','resentpost','ourservice','ourproject'));
     }
 
 
-    public function blogshow(Post $post){
-        $blogpost=Post::orderBy('created_at', 'desc')->where('type',3)->where('status',1)->paginate(6);
-        return view('frontend.page.postshow.blogpage',compact('blogpost'));
-
-
-
-    }
+  
     public function sershow(Post $post){
         $serpost=Post::orderBy('created_at', 'desc')->where('type',2)->where('status',1)->paginate(6);
         return view('frontend.page.postshow.serpage',compact('serpost'));
@@ -113,6 +109,7 @@ class PostController extends Controller
         
         $postupdate->title = $request->title;
         $postupdate->description = $request->description;
+        $postupdate->meta_tag = $request->meta_tag;
         $postupdate->slug = Str::slug($request->title);
       
         if(!empty($request->pic)){
@@ -128,7 +125,7 @@ class PostController extends Controller
         $postupdate->type = $request->type;
         $postupdate->status = $request->status;
         $postupdate->update();
-        return redirect()->route('blogmanage');
+        return redirect()->route('postmanage');
     }
 
     /**
@@ -139,6 +136,6 @@ class PostController extends Controller
         $postdelete=Post::find($id);
         File::delete('backend/blogimage/'.$postdelete->pic);
         $postdelete->delete();
-        return redirect()->route('blogmanage');
+        return redirect()->route('postmanage');
     }
 }

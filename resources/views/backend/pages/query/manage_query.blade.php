@@ -72,6 +72,7 @@
               </tbody>
 
              </table> 
+             {!! $query->links() !!}
             </div>
           </div>
       </div><!-- br-pagebody -->

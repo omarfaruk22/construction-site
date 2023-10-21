@@ -79,6 +79,7 @@
               </tbody>
 
              </table> 
+             {!! $manageemployee->links() !!}
             </div>
           </div>
       </div><!-- br-pagebody -->

@@ -21,6 +21,7 @@
                   <td>Title</td>
                   <td>Description</td>
                   <td>Image</td>
+                  <td>Keywords</td>
                   <td>Category name</td>
                   <td>status</td>
                   <td>Action</td>
@@ -36,6 +37,8 @@
                     <td>{{ $data->title }}</td>
                     <td>{!!$data->description!!}</td>
                     <td><img height="60"width="80" src="{{ asset('backend/blogimage/'.$data->pic)  }}" /></td>
+                    <td>{{ $data->meta_tag }}</td>
+                    
                     <td> @if ($data->type==0)
                       <span class="badge badge-sm btn-info">Project</span>
                       @elseif(($data->type==1))
@@ -43,10 +46,9 @@
                       @elseif(($data->type==2))
                       <span class="badge badge-sm btn-success">Services</span>
                       @elseif(($data->type==3))
-                      <span class="badge badge-sm btn-primary">Blog</span>
+                      <span class="badge badge-sm btn-primary">Welcome</span>
                      
-                      @elseif(($data->type==4))
-                      <span class="badge badge-sm btn-secondary">Welcome</span>
+                   
                       @else
                       <span class="badge badge-sm btn-danger">error</span>
                       @endif</td>
@@ -58,7 +60,7 @@
                       <span class="badge badge-sm btn-danger">error</span>
                       @endif</td>
                   
-                    <td>
+                  
                   
                     <td>
                       <a href="{{route('postedit',$data->id)}}" class="btn btn-sm btn-info"><i class="fa fa-edit"></i></a>
@@ -90,6 +92,7 @@
               </tbody>
 
              </table> 
+             {!! $post->links() !!}
             </div>
           </div>
       </div><!-- br-pagebody -->

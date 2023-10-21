@@ -16,7 +16,7 @@ class Comment extends Model
         'status'
         
     ];
-    public function blogs(){
+    public function posts(){
         
         return $this->belongsTo(Post::class,'post_id','id');
     

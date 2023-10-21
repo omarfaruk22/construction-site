@@ -20,7 +20,7 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        $manageemployee=Employee::orderby('id','asc')->get();
+        $manageemployee=Employee::orderby('id','asc')->paginate(15);
         return view('backend.pages.employee.manage_employee', compact('manageemployee'));
     }
 

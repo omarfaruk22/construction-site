@@ -13,7 +13,7 @@ class QueryController extends Controller
      */
     public function index()
     {
-        $query=Query::orderby('id', 'asc')->get();
+        $query=Query::orderby('id', 'asc')->paginate(15);
         return view('backend.pages.query.manage_query', compact('query'));
     }
 

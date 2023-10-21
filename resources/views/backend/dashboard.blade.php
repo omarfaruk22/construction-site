@@ -32,7 +32,7 @@
                 <div class="mg-l-20">
                   <p class="tx-10 tx-spacing-1 tx-mont tx-semibold tx-uppercase tx-white-8 mg-b-10">Total Project</p>
                   <p class="tx-24 tx-white tx-lato tx-bold mg-b-0 lh-1">{{$projectcount}}</p>
-                  <span><a  style="color:white; "href="{{route('blogmanage')}}">view details</a></span>
+                  <span><a  style="color:white; "href="{{route('postmanage')}}">view details</a></span>
                 </div>
               </div>
               <div id="ch3" class="ht-50 tr-y-1"></div>
@@ -45,7 +45,7 @@
                 <div class="mg-l-20">
                   <p class="tx-10 tx-spacing-1 tx-mont tx-semibold tx-uppercase tx-white-8 mg-b-10">Total Service</p>
                   <p class="tx-24 tx-white tx-lato tx-bold mg-b-0 lh-1">{{$servicecount}}</p>
-                  <span><a  style="color:white; "href="{{route('blogmanage')}}">view details</a></span>
+                  <span><a  style="color:white; "href="{{route('postmanage')}}">view details</a></span>
                 </div>
               </div>
               <div id="ch2" class="ht-50 tr-y-1"></div>

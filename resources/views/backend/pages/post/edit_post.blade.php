@@ -23,8 +23,8 @@
                 <option value="0" @if($blogedit->type==0) selected @endif >Project</option>
                 <option value="1" @if($blogedit->type==1) selected @endif >About</option>
                 <option value="2" @if($blogedit->type==2) selected @endif >Services</option>
-                <option value="3" @if($blogedit->type==3) selected @endif >Blog</option>
-                <option value="4" @if($blogedit->type==4) selected @endif >Welcome</option>
+                <option value="3" @if($blogedit->type==3) selected @endif >Welcome</option>
+              
       
               </select>
               <span class="text-danger">
@@ -47,6 +47,15 @@
               <textarea type="text" name="description" id="description" placeholder="Enter post content" class="form-control" >{{$blogedit->description}}</textarea>
               <span class="text-danger">
                 @error('description')
+                  {{ $message }}
+                @enderror
+              </span>
+             </div>
+             <div class="form-group">
+              <label for="meta_tag">Meta Keywords</label> 
+              <input type="text" name="meta_tag" id="meta_tag" placeholder=" Ex:Your, Keywords, Here" class="form-control" value="{{$blogedit->meta_tag}}">
+              <span class="text-danger">
+                @error('meta_tag')
                   {{ $message }}
                 @enderror
               </span>

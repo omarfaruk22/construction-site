@@ -17,7 +17,8 @@ return new class extends Migration
             $table->text('description');
             $table->string('pic');
             $table->string('slug')->nullable();
-            $table->unsignedTinyInteger('type');// blog,service,about,landing
+            $table->string('meta_tag')->nullable();
+            $table->unsignedTinyInteger('type');// project,service,about,landing
             $table->unsignedTinyInteger('status');
             $table->timestamps();
         });

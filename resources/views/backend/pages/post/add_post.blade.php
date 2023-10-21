@@ -28,8 +28,8 @@
                 <option value="0">Project</option> 
                 <option value="1">About</option> 
                 <option value="2">Services</option> 
-                <option value="3">Blog</option> 
-                <option value="4">Welcome</option> 
+                <option value="3">Welcome</option> 
+                
 
               </select>
               <span class="text-danger">
@@ -52,6 +52,15 @@
               <textarea type="text" name="description" id="description" placeholder="Enter post content" class="form-control"  value="{{ old('description') }}"></textarea>
               <span class="text-danger">
                 @error('description')
+                  {{ $message }}
+                @enderror
+              </span>
+             </div>
+             <div class="form-group">
+              <label for="meta_tag">Meta Keywords</label> 
+              <input type="text" name="meta_tag" id="meta_tag" placeholder=" Ex:Your, Keywords, Here" class="form-control" required>
+              <span class="text-danger">
+                @error('meta_tag')
                   {{ $message }}
                 @enderror
               </span>

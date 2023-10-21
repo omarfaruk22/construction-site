@@ -35,11 +35,11 @@
               </span>
           </div><!-- form-group -->
           <div class="form-group">
-            <input type="password" name="password" class="form-control fc-outline-dark" placeholder="Enter your password">
+            <input type="password" name="password" class="form-control fc-outline-dark" placeholder="password">
             
           </div><!-- form-group -->
           <div class="form-group">
-            <input type="password" name="password_confirmation" class="form-control fc-outline-dark" placeholder="Enter your password">
+            <input type="password" name="password_confirmation" class="form-control fc-outline-dark" placeholder="Confirm password">
             
           </div>
           <button type="submit" class="btn btn-info btn-block">Register</button>

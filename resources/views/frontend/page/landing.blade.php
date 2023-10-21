@@ -324,15 +324,15 @@
                     </div>
                    
                     <div class="row">
-                        @foreach($postshow as $data)
+                        @foreach($blogshow as $data)
                         <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.2s">
                             <div class="blog-item">
                                 <div class="blog-img">
-                                   <a href="{{route('postshow',$data->slug)}}"> <img height="200"width="80" src="{{ asset('backend/blogimage/'.$data->pic)  }}" alt="Image"></a>
+                                   <a href="{{route('blogsshow',$data->slug)}}"> <img height="200"width="80" src="{{ asset('backend/blogpostimage/'.$data->pic)  }}" alt="Image"></a>
                                 </div>
                                 <div class="blog-title">
                                     <h3>{{$data->title}}</h3>
-                                    <a class="btn" href="{{route('postshow',$data->slug)}}">Read more</a>
+                                    <a class="btn" href="{{route('blogsshow',$data->slug)}}">Read more</a>
                                 </div>
                                 <div class="blog-meta">
                                     <p>By<a href="#">Admin</a></p>

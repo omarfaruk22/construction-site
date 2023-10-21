@@ -2,13 +2,13 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>Builderz - Construction Company Website Template</title>
+        <title>@yield('title', config('app.name'))</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
-        <meta content="Construction Company Website Template" name="keywords">
-        <meta content="Construction Company Website Template" name="description">
+        <meta content="@yield('keywords', 'construction, building, civil engineer, all, pages')" name="keywords">
+        <meta content="Construction Company Website " name="description">
 
         <!-- Favicon -->
-        <link href="{{asset('frontend/img/about.jpg')}}" rel="icon">
+        <link href="{{asset('frontend/img/3.png')}}" rel="icon">
 
         <!-- Google Font -->
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">

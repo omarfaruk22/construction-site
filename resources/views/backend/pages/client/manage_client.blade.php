@@ -78,6 +78,7 @@
               </tbody>
 
              </table> 
+             {!! $clientmanage->links() !!}
             </div>
           </div>
       </div><!-- br-pagebody -->

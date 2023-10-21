@@ -13,7 +13,7 @@ class adminController extends Controller
      */
     public function index()
     {
-       $user=User::orderby('id','asc')->get();
+       $user=User::orderby('id','asc')->paginate(15);
        return view('backend.pages.admin.manage_admin', compact('user'));
     }
 

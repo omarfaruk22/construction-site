@@ -1,17 +1,19 @@
 @extends('frontend.master_template.frontend_template1')
 @section('content')
-@section('title', $postshows->first()->title . ' | ' . config('app.name'))
-@section('keywords', $postshows->first()->meta_tag)
+@section('title', $blogshows->first()->title . ' | ' . config('app.name'))
+@section('keywords', $blogshows->first()->meta_tag)
 
         <!-- Single Post Start-->
         <div class="single">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-8">
-                        @foreach($postshows as $data)
+                        @foreach($blogshows as $data)
                         <div class="single-content wow fadeInUp">
-                            <img height="300"width="80" src="{{ asset('backend/blogimage/'.$data->pic)  }}" alt="Image">
+                            <img height="300"width="80" src="{{ asset('backend/blogpostimage/'.$data->pic)  }}" alt="Image">
                             <h2>{{$data->title}}</h2>
+                            <p><span>Writter: {{$data->writer_name}}</span>  .  {{ $data->created_at->format('Y-m-d') }}</p>
+
                             <p>
                                 {!! $data->description!!}
                             </p>
@@ -31,10 +33,10 @@
                             </div>
                         </div> 
 
-                        <div class="single-comment wow fadeInUp">
+                       <div class="single-comment wow fadeInUp">
                             <h2>Comments</h2>
                             <ul class="comment-list">
-                                @foreach($commentshow as $data)
+                                @foreach($bgcommentshow as $data)
                                 <li class="comment-item">
                                     <div class="comment-body">
                                         <div class="comment-img">
@@ -51,17 +53,17 @@
                                     </div>
                                 </li>
                                 @endforeach
-                            </ul>
-                        </div>
-                        <div class="comment-form wow fadeInUp">
+                            </ul> 
+                       </div>
+                       <div class="comment-form wow fadeInUp">
                             <h2>Leave a comment</h2>
                             @if(Session::has('message'))
         
                             <span id="flash-message" class="alert alert-success">{{ Session::get('message') }}</span>
                                @endif
-                            <form action="{{route('commentsent')}}" method="post">
+                            <form action="{{route('bgcommentsent')}}" method="post">
                                 @csrf
-                                <input type="hidden" class="form-control" id="post_id"name="post_id" value="{{$postshow->id}}">
+                                <input type="hidden" class="form-control" id="blog_id"name="blog_id" value="{{$blogshow->id}}">
                                 <div class="form-group">
                                     <label for="name">Name *</label>
                                     <input type="text" class="form-control" id="name" name="name" required>
@@ -78,82 +80,50 @@
                                     <input type="submit" value="Post Comment" class="btn">
                                 </div>
                             </form>
-                        </div>
+                        </div> 
                     </div>
 
                     <div class="col-lg-4">
                         <div class="sidebar">
-                      
-
                             <div class="sidebar-widget wow fadeInUp">
-                                <h2 class="widget-title">Recent post</h2>
+                                <h2 class="widget-title">Categories</h2>
+                                <div class="category-widget">
+                                    <ul>
+                                        
+                                        @foreach($bgCategoryshow as $data)
+                                      
+                                        <li><a href="{{ route('blogshow',$data->name )}}">{{ $data->name}}</a><span>({{$data->blognam_count}})</span></li>
+                                      
+                                        @endforeach
+                                       
+                                        
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="sidebar-widget wow fadeInUp">
+                                <h2 class="widget-title">Recent Blog Post</h2>
                                 <div class="recent-post">
-                                    @foreach($resentpost as $item)
+                                    @foreach($resentbgshow as $data)
                                     <div class="post-item">
                                         <div class="post-img">
-                                            <img height="50"width="50" src="{{ asset('backend/blogimage/'.$item->pic)  }}" alt="Image">
+                                            <img src="{{ asset('backend/blogpostimage/'.$data->pic)  }}" />
                                         </div>
                                         <div class="post-text">
-                                            <a href="{{route('postshow',$item->slug)}}">{{$item->title}}</a>
+                                            <a href="{{route('blogsshow',$data->slug)}}">{{$data->title}}</a>
                                             <div class="post-meta">
-                                                <p>By<a href="#">Admin</a></p>
-                                                <p>In<a href="#">{{$item->created_at->diffForHumans()}}</a></p>
+                                                <p>By<a href="">Admin</a></p>
+                                                <p>In<a href="">{{$data->created_at->diffForHumans()}}</a></p>
                                             </div>
                                         </div>
                                     </div>
                                     @endforeach
                                   
-                                    
                                 </div>
                             </div>
-                            <div class="sidebar-widget wow fadeInUp">
-                                <div class="tab-post">
-                                    <h2 class="widget-title">Our Service</h2>
 
-                                    <div class="tab-content">
-                                        @foreach($ourservice as $data)
-                                           
-                                            <div class="post-item">
-                                                <div class="post-img">
-                                                    <img height="50"width="50" src="{{ asset('backend/blogimage/'.$data->pic)  }}" alt="Image">
-                                                </div>
-                                                <div class="post-text">
-                                                    <a href="{{route('postshow',$data->slug)}}">{{$data->title}}</a>
-                                                    <div class="post-meta">
-                                                        <p>By<a href="#">Admin</a></p>
-                                                        <p>In<a href="#">{{$data->created_at->diffForHumans()}}</a></p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            @endforeach
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="sidebar-widget wow fadeInUp">
-                                <div class="tab-post">
-                                    <h2 class="widget-title">Our Project</h2>
-
-                                    <div class="tab-content">
-                                        @foreach($ourproject as $data)
-                                           
-                                            <div class="post-item">
-                                                <div class="post-img">
-                                                    <img height="50"width="50" src="{{ asset('backend/blogimage/'.$data->pic)  }}" alt="Image">
-                                                </div>
-                                                <div class="post-text">
-                                                    <a href="{{route('postshow',$data->slug)}}">{{$data->title}}</a>
-                                                    <div class="post-meta">
-                                                        <p>By<a href="#">Admin</a></p>
-                                                        <p>In<a href="#">{{$data->created_at->diffForHumans()}}</a></p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            @endforeach
-
-                                    </div>
-                                </div>
-                            </div>
+                            
+                          
+                           
                         </div>
                     </div>
                 </div>

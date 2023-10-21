@@ -83,6 +83,7 @@
               </tbody>
 
              </table> 
+             {!! $blogpost->links() !!}
             </div>
           </div>
       </div><!-- br-pagebody -->

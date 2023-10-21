@@ -14,4 +14,11 @@ class Blogmodel extends Model
     
     
     }
+    protected $dates = ['created_at', 'updated_at'];
+    public function bgcomment(){
+        
+        return $this->hasMany(Blogcomment::class,'blog_id','id');
+    
+    
+    }
 }

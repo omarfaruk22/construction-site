@@ -13,12 +13,26 @@
                     <a href="{{route('sershow')}}" class="nav-item nav-link {{ Request::is('bg/service-show') ? 'active' : '' }}">Service</a>
                     <a href="{{route('employeeshow')}}" class="nav-item nav-link {{ Request::is('bg/team-show') ? 'active' : '' }}">Team</a>
                     <a href="{{route('projectshow')}}" class="nav-item nav-link {{ Request::is('bg/project-show') ? 'active' : '' }}">Project</a>
-                    <a href="{{route('blogshow')}}" class="nav-item nav-link {{ Request::is('all-show') ? 'active' : '' }}">Blog Page</a>
+                    {{-- <a href="{{route('blogshow')}}" class="nav-item nav-link {{ Request::is('all-show') ? 'active' : '' }}">Blog Page</a> --}}
+                    <div class="nav-item dropdown">
+                        <?php
+                        use App\Models\Backend\Category;
+                        $cateshow=Category::orderby('id','asc')->with('blognam')->where('nav_status',1)->where('status',1)->get();
+                        ?>
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Blog</a>
+                        <div class="dropdown-menu">
+                            @foreach($cateshow as $data)
+                                <a href="{{ route('blogshow',$data->name )}}" class="dropdown-item">{{ $data->name }}</a>
+                            @endforeach
+                        </div>
+                        
+                    </div>
                     <a href="{{route('contactcreate')}}" class="nav-item nav-link {{ Request::is('create') ? 'active' : '' }}">Contact</a>
+                  
                 </div>
-                {{-- <div class="ml-auto">
-                    <a class="btn" href="#">Login</a>
-                </div> --}}
+                <div class="ml-auto pr-3">
+                    <a class="btn" href="{{route('login')}}">Login</a>
+                </div>
             </div>
         </nav>
     </div>

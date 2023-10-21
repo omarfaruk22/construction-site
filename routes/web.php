@@ -10,13 +10,16 @@ use App\Http\Controllers\Backend\QueryController as querycon;
 use App\Http\Controllers\Backend\EmployeeController as employee1;
 use App\Http\Controllers\Backend\ClientsController as client1;
 use App\Http\Controllers\Backend\CommentController as comment;
+use App\Http\Controllers\Backend\BlogCommentcontroller;
 use App\Http\Controllers\Backend\CategoryController;
-use App\Http\Controllers\Backend\blogpostController;
+use App\Http\Controllers\Backend\blogpostController as blogpostController;
+use App\Models\Backend\Category;
 use App\Models\Backend\Post;
 use App\Models\Backend\Query;
 use App\Models\Backend\Employee;
 use App\Models\Backend\Client;
 use App\Models\Backend\Contact;
+use App\Models\Backend\Blogmodel;
 use App\Models\User;
 
 
@@ -32,30 +35,32 @@ use App\Models\User;
 */
 
 Route::get('/', function () {
-    $postshow=Post::orderBy('created_at', 'desc')->where('status',1)->where('type',3)->limit(3)->get();
-    $sershow=Post::orderBy('created_at', 'desc')->where('status',1)->where('type',2)->limit(6)->get();
-    $aboutshow=Post::orderBy('created_at', 'desc')->where('status',1)->where('type',1)->limit(1)->get();
-    $carshow=Post::orderBy('created_at', 'desc')->where('status',1)->where('type',4)->limit(3)->get();
+    $blogshow=Blogmodel::orderBy('id', 'desc')->where('status',1)->limit(3)->get();
+    $sershow=Post::orderBy('created_at', 'asc')->where('status',1)->where('type',2)->limit(6)->get();
+    $aboutshow=Post::orderBy('created_at', 'asc')->where('status',1)->where('type',1)->limit(1)->get();
+    $carshow=Post::orderBy('created_at', 'asc')->where('status',1)->where('type',3)->limit(3)->get();
     $queryshow=Query::orderby('created_at','asc')->where('status',1)->limit(5)->get();
     $queryshow1=Query::orderby('created_at','desc')->where('status',1)->limit(5)->get();
     $team=Employee::orderby('created_at','asc')->where('status',1)->limit(4)->get();
     $clientshow=Client::orderby('created_at','asc')->where('status',1)->limit(10)->get();
     $countclient=Client::count();
     $countemployee=Employee::count();
+    
     $countcompleteproject=Post::where('type',0)->where('status',1)->count();
     $countrunningproject=Post::where('type',0)->where('status',2)->count();
   
    
     
-    return view('frontend.page.landing', compact('postshow','sershow','queryshow','queryshow1','team','aboutshow',
+    return view('frontend.page.landing', compact('blogshow','sershow','queryshow','queryshow1','team','aboutshow',
         'carshow','clientshow','countclient','countemployee','countcompleteproject','countrunningproject'));
 })->name('landing');
 Route::get('/create',[contact1::class, 'create'])->name('contactcreate');
 Route::post('/sent',[comment::class, 'store'])->name('commentsent');
 Route::get('/show/{post:slug}',[postcon::class, 'show'])->name('postshow');
-Route::get('/all-show',[postcon::class, 'blogshow'])->name('blogshow');
+Route::get('/blogs-show/{blogmodel:slug}',[blogpostController::class, 'show'])->name('blogsshow');
+Route::get('/blog-show/{cat_name}',[blogpostController::class, 'blogshow'])->name('blogshow');
 
-Route::group(['prefix'=>'/bg'],function(){
+Route::group(['prefix'=>'/pt'],function(){
     Route::get('/service-show',[postcon::class, 'sershow'])->name('sershow');
     Route::get('/project-show',[postcon::class, 'projectshow'])->name('projectshow');
     Route::get('/team-show',[employee1::class, 'show'])->name('employeeshow');
@@ -63,6 +68,11 @@ Route::group(['prefix'=>'/bg'],function(){
 
 
     });
+    Route::group(['prefix'=>'/bg'],function(){
+        Route::post('/sent',[BlogCommentcontroller::class, 'store'])->name('bgcommentsent');
+    
+    
+        });
 
 Route::get('/admin', function () {
     $messagecount=Contact::where('read',0)->count();
@@ -121,6 +131,14 @@ Route::middleware('auth')->group(function () {
                     
             
                     });
+                    Route::group(['prefix'=>'/bg-comment'],function(){
+                        Route::get('/manage',[BlogCommentcontroller::class, 'index'])->name('bgcommentmanage');
+                        Route::get('/edit/{id}',[BlogCommentcontroller::class, 'edit'])->name('bgcommentedit');
+                        Route::post('/update/{id}',[BlogCommentcontroller::class, 'update'])->name('bgcommentupdate');
+                        Route::get('/delete/{id}',[BlogCommentcontroller::class, 'destroy'])->name('bgcommentdelete');
+                        
+                
+                        });
                 Route::group(['prefix'=>'/post'],function(){
                     Route::get('/create',[postcon::class, 'create'])->name('postcreate');
                     Route::post('/insert',[postcon::class, 'store'])->name('poststore');

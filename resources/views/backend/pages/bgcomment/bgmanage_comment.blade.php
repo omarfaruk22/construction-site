@@ -5,7 +5,7 @@
 <div class="br-pagetitle">
     <i class="icon ion-ios-home-outline"></i>
     <div>
-      <h4>Comment Page</h4>
+      <h4> Blog Comment Page</h4>
       <p class="mg-b-0">View Comment</p>
     </div>
 </div>
@@ -19,7 +19,7 @@
                 <tr>
                   <td>#Sl</td>
                   <td>Name</td>  
-                  <td>Post Name</td>  
+                  <td>Blog Name</td>  
                   <td>Email</td>
                   <td>Message</td>
                   <td>status</td>
@@ -30,11 +30,11 @@
 
               <tbody class="tbody">
               @php $sl=1 @endphp
-                @foreach ($managecomment as $data)
+                @foreach ($bgmanagecomment as $data)
                   <tr>
                     <td>{{ $sl }}</td>
                     <td>{{ $data->name }}</td>
-                    <td>{{ $data->posts->title }}</td>
+                    <td>{{ $data->bgblogs->title }}</td>
                     <td>{{$data->email}}</td>
                     <td>{{$data->comment}}</td>
                     <td> @if ($data->status==0)
@@ -46,7 +46,7 @@
                         @endif</td>
                     
                       <td> 
-                        <a href="{{route('commentedit',$data->id)}}" class="btn btn-sm btn-info"><i class="fa fa-edit"></i></a>
+                        <a href="{{route('bgcommentedit',$data->id)}}" class="btn btn-sm btn-info"><i class="fa fa-edit"></i></a>
                       <button class="btn btn-sm btn-danger"><i class="fa fa-trash" data-target='#delete{{ $data->id }}' data-toggle="modal"></i></button>
                     </td>
                   </tr>
@@ -65,7 +65,7 @@
                         </div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                          <a href="{{route('commentdelete', $data->id )}}" class="btn btn-danger">Confirm</a>
+                          <a href="{{route('bgcommentdelete', $data->id )}}" class="btn btn-danger">Confirm</a>
                         </div>
                       </div>
                     </div>
@@ -73,9 +73,9 @@
                                      @php $sl++ @endphp
                                   @endforeach
                                 </tbody>
-                  
+                               
                                </table> 
-                               {!! $managecomment->links() !!}
+                               {!! $bgmanagecomment->links() !!}
                               </div>
                             </div>
           

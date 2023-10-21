@@ -14,6 +14,16 @@ jQuery(document).ready(function(){
                 jQuery("#cat_id").val(result.data.id);
 
                 jQuery("#name").val(result.data.name);
+                jQuery(".nav_status").val(result.data.nav_status);
+                if(result.data.nav_status==1){
+                    jQuery(".navsta").text("Active");
+                }
+                else if(result.data.nav_status==0){
+                    jQuery(".navsta").text("Inactive");
+                }
+                else{
+                    jQuery(".navsta").text("Err");
+                }
             
                 
                 jQuery(".sts").val(result.data.status);
@@ -31,31 +41,86 @@ jQuery(document).ready(function(){
         });
     });
 
-
-    showData();
-    function showData(){
+    var currentPage = 1; // Track the current page
+    var perPage = 10; // Number of items per page
+    
+    showData(currentPage); // Initial load
+    
+    function showData(page) {
         $.ajax({
-            url:'catshow',
-            type:'GET',
-            datatype:'json',
-            success:function(result){
-                var sl=1;
+            url: 'catshow?page=' + page, // Include the page number in the URL
+            type: 'GET',
+            dataType: 'json',
+            success: function (result) {
+                var sl = (page - 1) * perPage + 1; // Calculate the starting count for the current page
                 jQuery(".tbody").html('');
-                $.each(result.data, function(key, item){
+                
+                $.each(result.data.data, function (key, item) {
+                    var statusText = (item.status === 1) ? 'Active' : 'Inactive';
+                    var navText = (item.nav_status === 1) ? 'Active' : 'Inactive';
                     jQuery(".tbody").append('<tr>\
-                    <td>'+sl+'</td>\
-                    <td>'+item.name+'</td>\
-                    <td>'+item.status+'</td>\
+                    <td>' + sl + '</td>\
+                    <td>' + item.name + '</td>\
+                    <td>' + navText + '</td>\
+                    <td>' + statusText + '</td>\
                     <td>\
-                      <button data-target="#editCategory" data-toggle="modal" class="btn btn-sm btn-info catEdit" value="'+item.id+'" ><i class="fa fa-edit"></i></button>\
-                      <button data-target="#delete" data-toggle="modal" class="btn btn-sm btn-danger catdeletedid" id="catdeletedid" value="'+item.id+'" ><i class="fa fa-trash"></i></button>\
+                      <button data-target="#editCategory" data-toggle="modal" class="btn btn-sm btn-info catEdit" value="' + item.id + '" ><i class="fa fa-edit"></i></button>\
+                      <button data-target="#delete" data-toggle="modal" class="btn btn-sm btn-danger catdeletedid" id="catdeletedid" value="' + item.id + '" ><i class="fa fa-trash"></i></button>\
                     </td>\
                   </tr>');
                   sl++;
                 });
+    
+                // Update the current page value
+                currentPage = page;
+    
+                // Add pagination controls if needed
+                addPaginationControls(result.data);
             }
         });
     }
+    
+    function addPaginationControls(paginationData) {
+        var totalPages = paginationData.last_page;
+        var currentPage = paginationData.current_page;
+    
+        // Create a container for pagination controls
+        var paginationContainer = $("<ul class='pagination'></ul>");
+    
+        // Create "Previous" button
+        if (currentPage > 1) {
+            var previousButton = $("<li class='page-item'><a class='page-link' href='#' data-page='" + (currentPage - 1) + "'>Previous</a></li>");
+            paginationContainer.append(previousButton);
+        }
+    
+        // Create buttons for each page
+        for (var i = 1; i <= totalPages; i++) {
+            var pageButton = $("<li class='page-item'><a class='page-link' href='#' data-page='" + i + "'>" + i + "</a></li>");
+            if (i === currentPage) {
+                pageButton.addClass('active');
+            }
+            paginationContainer.append(pageButton);
+        }
+    
+        // Create "Next" button
+        if (currentPage < totalPages) {
+            var nextButton = $("<li class='page-item'><a class='page-link' href='#' data-page='" + (currentPage + 1) + "'>Next</a></li>");
+            paginationContainer.append(nextButton);
+        }
+    
+        // Attach a click event handler for pagination buttons
+        paginationContainer.find('a.page-link').click(function (e) {
+            e.preventDefault();
+            var page = $(this).data('page');
+            showData(page);
+        });
+    
+        // Append the pagination controls to the page
+        $('.pagination-container').html(paginationContainer);
+    }
+    
+    // Initial load of data for the first page
+    showData(1);
 
     jQuery(".addCategory").click(function(){
         $.ajaxSetup({
@@ -64,6 +129,7 @@ jQuery(document).ready(function(){
             }
         });
         var name=jQuery(".name").val();
+        var nav_status = jQuery(".nav_status").is(":checked") ? 1 : 0; 
         var status=jQuery(".status").val();
 
         $.ajax({
@@ -72,6 +138,7 @@ jQuery(document).ready(function(){
             dataType:'json',
             data:{
                 'name':name,
+                'nav_status':nav_status,
                 'status':status
             },
             success: function(result){
@@ -102,6 +169,7 @@ jQuery(document).ready(function(){
         });
         var catId=jQuery(".cat_id").val();
         var cname=jQuery(".cname").val();
+        var nav_status = jQuery(".nav_status").is(":checked") ? 1 : 0; 
         var status=jQuery('#status').find(":selected").val();
 // console.log(status);
         $.ajax({
@@ -110,6 +178,7 @@ jQuery(document).ready(function(){
             dataType:'json',
             data:{
                 'cname':cname,
+                'nav_status':nav_status,
                 'status':status
             },
             success: function(result){

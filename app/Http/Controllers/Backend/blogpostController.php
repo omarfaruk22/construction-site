@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Backend\Blogmodel;
 use App\Models\Backend\Category;
+use App\Models\Backend\Blogcomment;
 use Illuminate\Support\Str;
 use Illuminate\Pagination\Paginator;
 use Intervention\Image\Facades\Image;
@@ -18,7 +19,7 @@ class blogpostController extends Controller
      */
     public function index()
     {
-        $blogpost=Blogmodel::orderby('id','asc')->with('blogcat')->get();
+        $blogpost=Blogmodel::orderby('id','asc')->with('blogcat')->paginate(15);
         return view('backend.pages.blogpost.manage_blogpost',compact('blogpost'));
     }
 
@@ -71,9 +72,28 @@ class blogpostController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function blogshow(string $cat_name){
+        $categories=Category::where('name',$cat_name)->where('status',1)->first();
+        $blogpost=Blogmodel::where('cat_id',$categories->id)->where('status',1)->paginate(6);
+        return view('frontend.page.postshow.blogpage',compact('blogpost','categories'));
+
+
+
+    }
+    public function show(Blogmodel $blogmodel)
     {
-        //
+        $blogshows=Blogmodel::where('id', $blogmodel->id)->get();
+        $blogshow=Blogmodel::find($blogmodel->id);
+        $bgcommentshow=Blogcomment::where('blog_id',$blogmodel->id)->where('status',0)->limit(20)->get();
+        $resentbgshow=Blogmodel::orderby('id','desc')->where('status',1)->limit(10)->get();
+        $bgCategoryshow=Category::where('status',1)->withCount('blognam')->get();
+        
+      
+      
+      
+       
+
+        return view('frontend.page.postshow.blogshow',compact('blogshows','blogshow','bgcommentshow','bgCategoryshow','resentbgshow'));
     }
 
     /**

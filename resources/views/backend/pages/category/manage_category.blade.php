@@ -25,6 +25,12 @@
             <input type="text" class="name form-control" placeholder="Enter Category Name">
             <span class="text-danger nameError"></span>
           </div>
+          <div class="form-check">
+            <input class="nav_status form-check-input" type="checkbox" value="" id="nav_status" >
+            <label class="form-check-label" for="nav_status">
+              Navbar status
+            </label>
+          </div>
         <div class="form-group">
             <label for="">Status</label>
             <select class="status form-control">
@@ -63,6 +69,14 @@
             <label for="">Category Name</label>
             <input type="text" id="name" class="cname form-control" placeholder="Enter Category Name">
             <span class="text-danger nameError"></span>
+          </div>
+          <div class="form-check">
+                   <div class="navsta" id="navsta"></div>    
+            <input class="nav_status form-check-input" type="checkbox" value="" id="nav_status" >
+            <label class="form-check-label" for="nav_status">
+              Navbar status
+            </label>
+            
           </div>
         <div class="form-group">
             <label for="">Status</label>
@@ -114,6 +128,7 @@
                 <tr>
                   <td>#Sl</td>
                   <td>Category Name</td>
+                  <td>Navbar Status</td>
                   <td>Status</td>
                   <td>Action</td>
                 </tr>
@@ -121,8 +136,9 @@
 
               <tbody class="tbody">
               </tbody>
-
+             
              </table> 
+             <div class="pagination-container"></div>
             </div>
           </div><!-- col-3 -->
       </div><!-- br-pagebody -->

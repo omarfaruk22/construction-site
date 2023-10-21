@@ -15,7 +15,7 @@ class ClientsController extends Controller
      */
     public function index()
     {
-        $clientmanage=Client::orderby('id','asc')->get();
+        $clientmanage=Client::orderby('id','asc')->paginate(15);
         return view('backend.pages.client.manage_client', compact('clientmanage'));
     }
 

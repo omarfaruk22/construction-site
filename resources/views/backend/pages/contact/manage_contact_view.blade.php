@@ -119,7 +119,8 @@
                 @endforeach
               </tbody>
 
-             </table> 
+             </table>
+             {!! $contact->links() !!} 
             </div>
           
       </div><!-- br-pagebody -->

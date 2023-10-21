@@ -87,7 +87,7 @@
             <span class="menu-item-label">Comment</span>
           </a><!-- br-menu-link -->
           <ul class="br-menu-sub">
-            <li class="sub-item"><a href="#" class="sub-link">Blog Comment</a></li>
+            <li class="sub-item"><a href="{{route('bgcommentmanage')}}" class="sub-link">Blog Comment</a></li>
             <li class="sub-item"><a href="{{route('commentmanage')}}" class="sub-link">Post Comment</a></li>
           </ul>
         </li>

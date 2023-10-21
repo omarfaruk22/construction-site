@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Backend\Category;
+use Illuminate\Pagination\Paginator;
 
 class CategoryController extends Controller
 {
@@ -45,6 +46,7 @@ class CategoryController extends Controller
         else{
             $cat = new Category;
             $cat->name = $request->name;
+            $cat->nav_status = $request->nav_status;
             $cat->status = $request->status;
             $cat->save();
             return response()->json([
@@ -59,7 +61,9 @@ class CategoryController extends Controller
      */
     public function catshow()
     {
-        $show = Category::all();
+        $show = Category::paginate(6);
+       
+    
         return response()->json([
             'data'=>$show
         ]);
@@ -91,6 +95,7 @@ class CategoryController extends Controller
     {
         $catupdate =Category::find($id);
         $catupdate->name = $request->cname;
+        $catupdate->nav_status = $request->nav_status;
         $catupdate->status = $request->status;
         $catupdate->update();
         return response()->json([
